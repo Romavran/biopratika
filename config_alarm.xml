@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bioreactors>
+<place>
+<name>Цех</name>
+
+<dryer>
+<id>dryer</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>dryer</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>Сушка "Малышка"</observer>
+<dbname>pf300_dryer</dbname>
+<tbname>process</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+<field class="problem">
+<id>product</id>
+<inSQL>"Product_set"</inSQL>
+<comment>Весы продукта</comment>
+<min>-3.</min>
+<max>8.5</max>
+<signal>red</signal>
+<message>Замена бочки</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="dryer_parameter">
+<id>PDS2</id>
+<inSQL>"PDS2"</inSQL>
+<comment>Потери давления в воздушной линии</comment>
+</field>
+
+<field class="dryer_parameter">
+<id>TE3</id>
+<inSQL>"TE3"</inSQL>
+<comment>Температура ТЕ3</comment>
+</field>
+
+<field class="dryer_parameter">
+<id>TE2</id>
+<inSQL>"TE2"</inSQL>
+<comment>Температура ТЕ2</comment>
+</field>
+
+<field class="dryer_parameter">
+<id>TE4</id>
+<inSQL>"TE4"</inSQL>
+<comment>Температура ТЕ4</comment>
+</field>
+
+</fields>
+</dryer>
+
+<bioreactor>
+
+<id>300</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>pf300</name>
+<ip>192.168.11.42</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>ПФ-300</observer>
+<dbname>pf300</dbname>
+<tbname>process2</tbname>
+
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+<field class="Pump">
+<id>CircPump</id>
+<inSQL>pump_main_fq</inSQL>
+<comment>Частота циркуляционного насоса</comment>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>t_fer_set</inSQLset>
+<inSQL>t_hamilton</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>2</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>ph_set</inSQLset>
+<inSQL>ph_act_2</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Pressure</id>
+<inSQLset>p_set</inSQLset>
+<inSQL>p_down_act</inSQL>
+<inSQLalarm>4.5</inSQLalarm>
+<delta>0.5</delta>
+<signal>red</signal>
+<comment>Давление реактора</comment>
+<message>Проблемы с давлением</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>pО2</id>
+<inSQL>po2_act</inSQL>
+<comment>рО2</comment>
+<min>5</min>
+<max>100</max>
+<signal>yellow</signal>
+<message>Проблемы с уровнем рО2</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>sep_level</id>
+<inSQL>sep_dp_act</inSQL>
+<comment>Уровень сепаратора</comment>
+<min>0</min>
+<max>4000</max>
+<signal>red</signal>
+<message>Проблемы с уровнем сепаратора</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="level">
+<id>LT110</id>
+<inSQL>"Ammonia_Level"</inSQL>
+<comment>Титрант</comment>
+<min>8000</min>
+<max>28000</max>
+<signal>red</signal>
+<messagemin>Мало титранта</messagemin>
+<messagemax>Перелив титранта</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT111</id>
+<inSQL>"e001_weight"</inSQL>
+<comment>Концентрат</comment>
+<min>20</min>
+<max>130</max>
+<signal>red</signal>
+<messagemin>Мало концентрата</messagemin>
+<messagemax>Перелив бочки концентрата</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="problem">
+<id>p_in_act</id>
+<inSQL>"P_in_act"</inSQL>
+<comment>Давление на входе в линию (от компрессора)</comment>
+<min>7.5</min>
+<max>11.</max>
+<signal>red</signal>
+<message>Проблемы с давлением на выходе из компрессора</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>degasQ</id>
+<inSQL>op_new</inSQL>
+<comment>Качество дегазации</comment>
+<min>0.</min>
+<max>3.</max>
+<signal>red</signal>
+<message>Проблемы с качеством дегазации</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="wash">
+<id>pump_sep_fq</id>
+<inSQL>pump_sep_fq</inSQL>
+<comment>Частота насоса сепаратора</comment>
+<min>20</min>
+<max>50</max>
+<signal>red</signal>
+<message>Не работает насос сепаратора при мойке</message>
+<alarmval>1</alarmval>
+</field>
+
+</fields>
+</bioreactor>
+
+<irfourier>
+<id>irfourier</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>IR-Fourier</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>ИК Фурье</observer>
+<dbname>pf20</dbname>
+<tbname>irfourier</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+<field class="parameter">
+<id>datetime</id>
+<inSQL>datetime</inSQL>
+</field>
+
+<field class="parameter">
+<id>PO4</id>
+<inSQL>"PO4M1"</inSQL>
+</field>
+
+<field class="parameter">
+<id>SO4</id>
+<inSQL>"SO4M1"</inSQL>
+</field>
+
+<field class="parameter">
+<id>NH4</id>
+<inSQL>"NH4M1"</inSQL>
+</field>
+
+<field class="parameter">
+<id>NO3</id>
+<inSQL>"NO3M1"</inSQL>
+</field>
+
+<field class="parameter">
+<id>CO3</id>
+<inSQL>"CO3M1"</inSQL>
+</field>
+
+<field class="parameter">
+<id>CH3COO</id>
+<inSQL>"CH3COOM1"</inSQL>
+</field>
+
+</fields>
+</irfourier>
+
+<bioreactor>
+<id>80</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>Clara</name>
+<ip>192.168.11.42</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>Клара</observer>
+<dbname>pf300</dbname>
+<tbname>process2</tbname>
+
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+<field class="problem">
+<id>KZH</id>
+<inSQL>"KZH_Level"</inSQL>
+<comment>Уровень КЖ в приёмной бочке</comment>
+<min>5</min>
+<max>30</max>
+<signal>red</signal>
+<message>Проверить Клару</message>
+<alarmval>1</alarmval>
+</field>
+
+</fields>
+</bioreactor>
+
+</place>
+
+<place>
+<name>МФ</name>
+
+<bioreactor>
+<id>3</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>mf1-1</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>МФ1-1</observer>
+<dbname>pf20</dbname>
+<tbname>mf1_1</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>"ph_set"</inSQLset>
+<inSQL>"ph_act"</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>"temp_set"</inSQLset>
+<inSQL>"temp_act"</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>3</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pO2</id>
+<inSQLset>"o2_set"</inSQLset>
+<inSQL>"o2_act"</inSQL>
+<inSQLalarm>80</inSQLalarm>
+<delta>5</delta>
+<signal>red</signal>
+<comment>pO2 реактора</comment>
+<message>Проблемы с pO2</message>
+<alarmval>1</alarmval>
+</field>
+</fields>
+</bioreactor>
+
+<bioreactor>
+<id>3</id>
+<inwork>no</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>mf1-2</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>МФ1-2</observer>
+<dbname>pf20</dbname>
+<tbname>mf1_2</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>"ph_set"</inSQLset>
+<inSQL>"ph_act"</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>"temp_set"</inSQLset>
+<inSQL>"temp_act"</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>3</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pO2</id>
+<inSQLset>"o2_set"</inSQLset>
+<inSQL>"o2_act"</inSQL>
+<inSQLalarm>80</inSQLalarm>
+<delta>5</delta>
+<signal>red</signal>
+<comment>pO2 реактора</comment>
+<message>Проблемы с pO2</message>
+<alarmval>1</alarmval>
+</field>
+</fields>
+</bioreactor>
+
+<bioreactor>
+<id>3</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>mf2-1</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>МФ2-1</observer>
+<dbname>pf20</dbname>
+<tbname>mf2_1</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>"ph_set"</inSQLset>
+<inSQL>"ph_act"</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>"temp_set"</inSQLset>
+<inSQL>"temp_act"</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>3</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pO2</id>
+<inSQLset>"o2_set"</inSQLset>
+<inSQL>"o2_act"</inSQL>
+<inSQLalarm>80</inSQLalarm>
+<delta>5</delta>
+<signal>red</signal>
+<comment>pO2 реактора</comment>
+<message>Проблемы с pO2</message>
+<alarmval>1</alarmval>
+</field>
+</fields>
+</bioreactor>
+
+<bioreactor>
+<id>3</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>mf2-2</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>МФ2-2</observer>
+<dbname>pf20</dbname>
+<tbname>mf2_2</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>"ph_set"</inSQLset>
+<inSQL>"ph_act"</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>"temp_set"</inSQLset>
+<inSQL>"temp_act"</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>3</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pO2</id>
+<inSQLset>"o2_set"</inSQLset>
+<inSQL>"o2_act"</inSQL>
+<inSQLalarm>80</inSQLalarm>
+<delta>5</delta>
+<signal>red</signal>
+<comment>pO2 реактора</comment>
+<message>Проблемы с pO2</message>
+<alarmval>1</alarmval>
+</field>
+</fields>
+</bioreactor>
+
+</place>
+
+<place>
+<name>Фермзал</name>
+
+<bioreactor>
+
+<id>1</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>pf20</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>ПФ-20</observer>
+<dbname>pf20</dbname>
+<tbname>process</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+<field class="Pump">
+<id>CircPump</id>
+<inSQL>"Circulation_pump"</inSQL>
+<comment>Частота циркуляционного насоса</comment>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>"TE_Ferment_set"</inSQLset>
+<inSQL>"TE_Ferment_act"</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>3</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>"pH_set"</inSQLset>
+<inSQL>"pH_act"</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Pressure</id>
+<inSQLset>"PE_Ferm_set"</inSQLset>
+<inSQL>"PE_Ferm_act"</inSQL>
+<inSQLalarm>4</inSQLalarm>
+<delta>0.5</delta>
+<signal>red</signal>
+<comment>Давление реактора</comment>
+<message>Проблемы с давлением</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>pО2</id>
+<inSQL>"pO2_act"</inSQL>
+<comment>рО2</comment>
+<min>5</min>
+<max>100</max>
+<signal>yellow</signal>
+<message>Проблемы с уровнем рО2</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="level">
+<id>LT107</id>
+<inSQL>"LT107"</inSQL>
+<comment>Вода концентрата</comment>
+<min>2</min>
+<max>35</max>
+<signal>red</signal>
+<messagemin>Не заливается вода концентрата</messagemin>
+<messagemax>Перелив воды концентрата</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT108</id>
+<inSQL>"LT108"</inSQL>
+<comment>Вода титранта</comment>
+<min>2</min>
+<max>35</max>
+<signal>red</signal>
+<messagemin>Не заливается вода титранта</messagemin>
+<messagemax>Перелив воды титранта</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT110</id>
+<inSQL>"LT110"</inSQL>
+<comment>Титрант</comment>
+<min>8</min>
+<max>35</max>
+<signal>yellow</signal>
+<messagemin>Мало титранта - сообщить</messagemin>
+<messagemax>Перелив титранта</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT111</id>
+<inSQL>"LT111"</inSQL>
+<comment>Концентрат</comment>
+<min>8</min>
+<max>40</max>
+<signal>red</signal>
+<messagemin>Мало концентрата (меньше 8 л)</messagemin>
+<messagemax>Перелив бочки концентрата</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="wash">
+<id>pump_sep_fq</id>
+<inSQL>"Separator_pump"</inSQL>
+<comment>Частота насоса сепаратора</comment>
+<min>30</min>
+<max>100</max>
+<signal>red</signal>
+<message>Не работает насос сепаратора при мойке</message>
+<alarmval>1</alarmval>
+</field>
+
+</fields>
+</bioreactor>
+
+<bioreactor>
+<id>3</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>ef25</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>ЕФ-25</observer>
+<dbname>ef25</dbname>
+<tbname>process</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+
+<field class="problem">
+<id>pH</id>
+<inSQL>ph</inSQL>
+<comment>pH</comment>
+<min>5.</min>
+<max>6.</max>
+<signal>red</signal>
+<message>Проблемы с рН</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>T</id>
+<inSQL>t_react</inSQL>
+<comment>Tемпература</comment>
+<min>40</min>
+<max>45</max>
+<signal>red</signal>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>pО2</id>
+<inSQL>po2</inSQL>
+<comment>рО2</comment>
+<min>5</min>
+<max>100</max>
+<signal>red</signal>
+<message>Проблемы с уровнем рО2</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>pressure</id>
+<inSQL>p_react</inSQL>
+<comment>Давление</comment>
+<min>0</min>
+<max>4</max>
+<signal>red</signal>
+<message>Проблемы с давлением</message>
+<alarmval>1</alarmval>
+</field>
+</fields>
+</bioreactor>
+
+<bioreactor>
+<id>40</id>
+<inwork>yes</inwork>
+<messagesend>no</messagesend>
+<alarm>no</alarm>
+<name>pf40</name>
+<ip>192.168.11.192</ip>
+<log>postgres</log>
+<pass>root</pass>
+<observer>ПФ-40</observer>
+<dbname>pf20</dbname>
+<tbname>pf40</tbname>
+<fields>
+<field class="datetime">
+<id>datetime</id>
+<inGoogleDocs>Дата и время</inGoogleDocs>
+<inSQL>datetime</inSQL>
+<comment>Дата и время</comment>
+<letter>E</letter>
+</field>
+
+<field class="Pump">
+<id>CircPump</id>
+<inSQL>"Circulation_pump"</inSQL>
+<comment>Частота циркуляционного насоса</comment>
+</field>
+
+<field class="problem1">
+<id>Temperature</id>
+<inSQLset>"TE_Ferment_set"</inSQLset>
+<inSQL>"TE_Ferment_act"</inSQL>
+<inSQLalarm>90</inSQLalarm>
+<delta>3</delta>
+<signal>red</signal>
+<comment>Температура реактора</comment>
+<message>Проблемы с термостатированием</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>pH</id>
+<inSQLset>"pH_set"</inSQLset>
+<inSQL>"pH_act"</inSQL>
+<inSQLalarm>13</inSQLalarm>
+<delta>0.5</delta>
+<signal>yellow</signal>
+<comment>pH реактора</comment>
+<message>Проблемы с рН (либо проводится мойка)</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem1">
+<id>Pressure</id>
+<inSQLset>"PE_Ferm_set"</inSQLset>
+<inSQL>"PE_Ferm_top"</inSQL>
+<inSQLalarm>5</inSQLalarm>
+<delta>0.5</delta>
+<signal>red</signal>
+<comment>Давление реактора</comment>
+<message>Проблемы с давлением</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="problem">
+<id>pО2</id>
+<inSQL>"pO2_act"</inSQL>
+<comment>рО2</comment>
+<min>5</min>
+<max>100</max>
+<signal>yellow</signal>
+<message>Проблемы с уровнем рО2</message>
+<alarmval>1</alarmval>
+</field>
+
+<field class="level">
+<id>LT107</id>
+<inSQL>"LT107"</inSQL>
+<comment>Вода концентрата</comment>
+<min>2</min>
+<max>35</max>
+<signal>red</signal>
+<messagemin>Не заливается вода концентрата</messagemin>
+<messagemax>Перелив воды концентрата</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT108</id>
+<inSQL>"LT108"</inSQL>
+<comment>Вода титранта</comment>
+<min>2</min>
+<max>35</max>
+<signal>red</signal>
+<messagemin>Не заливается вода титранта</messagemin>
+<messagemax>Перелив воды титранта</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT110</id>
+<inSQL>"LT110"</inSQL>
+<comment>Титрант</comment>
+<min>8</min>
+<max>35</max>
+<signal>yellow</signal>
+<messagemin>Мало титранта - сообщить</messagemin>
+<messagemax>Перелив титранта</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>LT111</id>
+<inSQL>"LT111"</inSQL>
+<comment>Концентрат</comment>
+<min>8</min>
+<max>35</max>
+<signal>red</signal>
+<messagemin>Мало концентрата - готовить навески и сообщить</messagemin>
+<messagemax>Перелив бочки концентрата</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>Conc_Scales</id>
+<inSQL>"Conc_Scales"</inSQL>
+<comment>Весы концентрата</comment>
+<min>2</min>
+<max>8</max>
+<signal>red</signal>
+<messagemin>Не льётся концентрат на весы</messagemin>
+<messagemax>Перелив концентрата на весы</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>Titr_Scales</id>
+<inSQL>"Titr_Scales"</inSQL>
+<comment>Весы титранта</comment>
+<min>2</min>
+<max>8</max>
+<signal>red</signal>
+<messagemin>Не льётся титрант на весы</messagemin>
+<messagemax>Перелив титранта на весы</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="level">
+<id>WaterTitr_Scales</id>
+<inSQL>"WaterTitr_Scales"</inSQL>
+<comment>Весы воды титранта</comment>
+<min>2</min>
+<max>8</max>
+<signal>red</signal>
+<messagemin>Не льётся вода на весы</messagemin>
+<messagemax>Перелив воды на весы</messagemax>
+<alarmvalmin>1</alarmvalmin>
+<alarmvalmax>1</alarmvalmax>
+</field>
+
+<field class="wash">
+<id>pump_sep_fq</id>
+<inSQL>"Separator_pump"</inSQL>
+<comment>Частота насоса сепаратора</comment>
+<min>30</min>
+<max>100</max>
+<signal>red</signal>
+<message>Не работает насос сепаратора при мойке</message>
+<alarmval>1</alarmval>
+</field>
+
+</fields>
+</bioreactor>
+
+</place>
+</bioreactors>
