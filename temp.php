@@ -69,11 +69,38 @@
 
 <?php
 //основной скрипт. 
+function logging($name,$ilogold, $ilognew)
+{
+		global $logMessageA;
+		/*записать в реактор logerror. олд/new. генерируем текстовое сообщение в лог. если есть повторяющиеся фрагменты, не пишем их. делаем split по br. удаляем все элементы, которые копируются. если есть старый фрагмент, который не дублируется */
+		/*делаем сплит обеих строк по br*/
+		$logMessage = '';
+		$logold  = explode("<br>", $ilogold);
+		$lognew = explode("<br>", $ilognew);
+		/*сравниваем куски*/
+		$result = array_diff( $lognew,$logold);
+        $result2 = array_diff( $logold,$lognew);
+		if (count($result)>0) {
+			/*генерируем сообщение для лога*/
+			$logMessage = implode(". ",$result);
+		}
+        if (count($result2)>0) {
+			/*генерируем сообщение для лога*/
+			$logMessage = $logMessage." Исправлено: ". implode(". ",$result2);
+		}
+		if (strlen($logMessage)>0) {
+			$logMessage=$name." ".$logMessage."\n";
+			$logMessageA = $logMessageA.' '.$logMessage;
+		}
+
+}
+
 date_default_timezone_set('Europe/Moscow');
 
 //читаем конфиг
 $config_file = 'config_alarm.xml';
 $config = simplexml_load_file($config_file);
+$logMessageA = '';
 
 foreach ($config->place as $place) {
 	echo '<div class="col-3">';
@@ -284,7 +311,7 @@ foreach ($config->place as $place) {
 					}
 				}
 				
-			}				
+			}			
 		} else {
 			//Отключен
 			$signal = "grey";
@@ -327,7 +354,14 @@ foreach ($config->place as $place) {
 			header("Refresh: 0");
 		}
 		echo "</tr>";
+		
+		logging($bioreactor->observer,$bioreactor->lognew, $message);
+		$bioreactor->logold = $bioreactor->lognew; 
+		$bioreactor->lognew = $message;
+		
 		$signal = "green";
+		
+		
 		$message = "";
 		$numgreen = 0;
 		$numyellow = 0;
@@ -472,6 +506,10 @@ foreach ($config->place as $place) {
 			header("Refresh: 0");
 		}
 		echo "</tr>";
+		
+		logging($dryer->observer,$dryer->lognew, $message);
+		$dryer->logold = $dryer->lognew; 
+		$dryer->lognew = $message;
 	}
 
 	foreach ($place->irfourier as $irfourier) {
@@ -619,11 +657,30 @@ foreach ($config->place as $place) {
 			header("Refresh: 0");
 		}
 		echo "</tr>";
+
+		logging($irfourier->observer,$irfourier->lognew, $message);
+		$irfourier->logold = $irfourier->lognew; 
+		$irfourier->lognew = $message;
+
+		
+		
 	}
 	
 	echo '</table>';
 	echo('</div>');
+	
+	
+	
 }
+	
+$xmlPlain = $config->asXML();
+file_put_contents($config_file, $xmlPlain );
+	
+if (strlen($logMessageA)>0) {
+	$logMessageA = date("Y-m-d H:i:s").' '.$logMessageA."\n";
+	file_put_contents('logs.txt', $logMessageA, FILE_APPEND | LOCK_EX);
+}
+	
 ?>
 
 </div>

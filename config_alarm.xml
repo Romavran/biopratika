@@ -8,6 +8,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>dryer</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -68,6 +70,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>pf300</name>
 <ip>192.168.11.42</ip>
 <log>postgres</log>
@@ -213,9 +217,11 @@
 
 <irfourier>
 <id>irfourier</id>
-<inwork>yes</inwork>
+<inwork>no</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold>&lt;br&gt;ИК Фурье отключен (кнопкой)</logold>
+<lognew>&lt;br&gt;ИК Фурье отключен (кнопкой)</lognew>
 <name>IR-Fourier</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -275,6 +281,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>Clara</name>
 <ip>192.168.11.42</ip>
 <log>postgres</log>
@@ -316,6 +324,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>mf1-1</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -376,6 +386,8 @@
 <inwork>no</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold>&lt;br&gt;Реактор отключен (кнопкой)</logold>
+<lognew>&lt;br&gt;Реактор отключен (кнопкой)</lognew>
 <name>mf1-2</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -436,6 +448,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold>&lt;br&gt;Проблемы с pO2</logold>
+<lognew>&lt;br&gt;Проблемы с pO2</lognew>
 <name>mf2-1</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -496,6 +510,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>mf2-2</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -562,6 +578,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>pf20</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -702,6 +720,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold/>
+<lognew/>
 <name>ef25</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
@@ -770,6 +790,8 @@
 <inwork>yes</inwork>
 <messagesend>no</messagesend>
 <alarm>no</alarm>
+<logold>&lt;br&gt;Проводится мойка</logold>
+<lognew>&lt;br&gt;Проводится мойка</lognew>
 <name>pf40</name>
 <ip>192.168.11.192</ip>
 <log>postgres</log>
